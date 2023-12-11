@@ -43,7 +43,7 @@ const Control = () => {
                 try {
                     firebase.db.collection('animal').where('idtambo', '==', tamboSel.id).where('estpro', '==', 'En Ordeñe').where('fbaja', '==', '').orderBy('rp').get().then(snapshotAnimal)
                 } catch (error) {
-                    console.log('error')
+                    console.log(error)
                 }
             }
             //busca los animales en ordeñe
@@ -100,7 +100,7 @@ const Control = () => {
                 }
             } catch {
                 diasPre = 0;
-            }console.log(new Date(date).toISOString());
+            };
             return {
                 id: doc.id,
                 diasLact: diasLact,

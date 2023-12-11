@@ -75,9 +75,14 @@ const DetalleControl = ({ animal, animales, guardarAnimales }) => {
    const changeSugerido = e => {
       //console.log('cambiar sugerido');
       guardarSug(e.target.value);
-
    }
-
+    let formattedDate=""
+   console.log("fuc:",fuc, rp)
+   console.log("firebase:",firebase.timeStampToDate(fuc))
+   try {
+       formattedDate = format(firebase.timeStampToDate(fuc), 'dd/MM/yyyy')
+      console.log("formattedDate:", formattedDate, rp)
+   }catch(error){console.log(error, rp)}
    return (
 
 
@@ -87,7 +92,7 @@ const DetalleControl = ({ animal, animales, guardarAnimales }) => {
          <td >{categoria}</td>
          <td >{rodeo}</td>
          <td >{parseFloat(uc).toFixed( 2 )}</td>
-         <td >{format(firebase.timeStampToDate(fuc), 'dd/MM/yyyy')} </td>
+         <td >{formattedDate} </td>
          <td >{parseFloat(ca).toFixed( 2 )}</td>
          <td >{anorm}</td>
          <td >{diasLact}</td>

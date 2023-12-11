@@ -79,36 +79,29 @@ function snapshotParametros(snapshot) {
          let p;
          if(porcentaje == 0){
             p = {
-               fracion: firebase.TimeStamp(),
+               fracion: firebase.nowTimeStamp(),
                porcentaje: 0
             }
-         } else {
-            p = {
-               fracion: firebase.TimeStamp(),
-               porcentaje: Number(porcentaje)
-            }
+         }else{
+         p = {
+            fracion: firebase.nowTimeStamp(),
+
+            porcentaje: Number(porcentaje)
          }
-   
-         console.log('Datos a actualizar:', p);
-   
-         if(doc.id) {
-            try {
-               firebase.db.collection('animal').doc(String(doc.id)).update(p);
-               console.log('Actualización exitosa para el documento con ID:', doc.id);
-            } catch (error) {
-               console.log('Error al actualizar documento con ID:', doc.id, 'Error:', error);
-            }
-         }
-   
+      }
+      if(doc.id){
+         try {
+            firebase.db.collection('animal').doc(String(doc.id)).update(p);
+         } catch (error) {
+            console.log(error);
+         }}
          return {
             id: doc.id,
             ...doc.data()
          }
-      });
-   
+      })
       guardarAnimal(ani);
    }
-   
 
 
    return (
