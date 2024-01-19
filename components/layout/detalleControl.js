@@ -75,6 +75,7 @@ const DetalleControl = ({ animal, animales, guardarAnimales }) => {
    const changeSugerido = e => {
       //console.log('cambiar sugerido');
       guardarSug(e.target.value);
+      
    }
     let formattedDate=""
    console.log("fuc:",fuc, rp)
