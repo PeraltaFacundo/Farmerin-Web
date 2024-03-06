@@ -9,6 +9,7 @@ import differenceInDays from 'date-fns/differenceInDays';
 import { Alert, Table } from 'react-bootstrap';
 import { FaSort } from 'react-icons/fa';
 
+// Control
 
 const Control = () => {
     //states de ordenamiento

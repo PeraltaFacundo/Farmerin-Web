@@ -117,7 +117,9 @@ const DetalleControl = ({ animal, animales, guardarAnimales }) => {
                )}
             </Overlay>
          </td>
-         <td >{format(firebase.timeStampToDate(fracion), 'dd/MM/yyyy')}</td>
+         <td >{format(firebase.timeStampToDate(fracion), 'dd/MM/yyyy')}
+         </td>
+         
          <td>
 
             <Button
