@@ -102,6 +102,9 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
             <Link href="/recepciones">
               <MenuItem>Recepciones</MenuItem>
             </Link>
+            <Link href="/monitor">
+              <MenuItem>Monitor de ingresos</MenuItem>
+            </Link>
           </SubMenu>
 
         </Menu>
