@@ -10,7 +10,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaIndustry, FaChartLine, FaCog } from 'react-icons/fa';
+import { FaTachometerAlt, FaIndustry, FaChartLine, FaCog, FaTools } from 'react-icons/fa';
 import { GiCow } from 'react-icons/gi';
 import { FirebaseContext } from '../../firebase2';
 const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
@@ -102,12 +102,21 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
             <Link href="/recepciones">
               <MenuItem>Recepciones</MenuItem>
             </Link>
+          </SubMenu>
+          </Menu>
+          
+          <Menu iconShape="circle">
+          <SubMenu
+            suffix={<span className="badge yellow">1</span>}
+            title='Herramientas'
+            icon={<FaTools />}
+          >
             <Link href="/monitor">
-              <MenuItem>Monitor de ingresos</MenuItem>
+              <MenuItem>Monitor de Ingreso </MenuItem>
             </Link>
           </SubMenu>
-
         </Menu>
+
         <Menu iconShape="circle">
           <SubMenu
             // suffix={<span className="badge yellow">2</span>}
@@ -130,7 +139,6 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
               <MenuItem>Dirsa</MenuItem>
             </Link >
           </SubMenu>
-
         </Menu>
        
       </SidebarContent>
