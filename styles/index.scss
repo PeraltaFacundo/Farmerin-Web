@@ -564,3 +564,157 @@ $icon-size: 35px;
   }
 
 }
+
+// MONITOR
+.containerMonitor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderMonitor {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+
+// RACIONES
+.containerRaciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loaderRaciones {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.loaderGrafico {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+/* Grafico.css */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.containerGrafico {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.chartContainer {
+  flex: 1;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listContainer {
+  flex: 2; /* Hacer esta columna más ancha */
+  margin-left: 30px;
+}
+
+.tamboChart {
+  width: 700%;
+  max-width: 700px; /* Tamaño del gráfico */
+}
+
+.tamboChart h2 {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.AnimalesAusentesFormulario {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.AnimalesAusentesFormulario h2 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+.tablaDeAnimales {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tablaDeAnimales th,
+.tablaDeAnimales td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.tablaDeAnimales th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.tablaDeAnimales tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tablaDeAnimalestr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-accion {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-accion:hover {
+  background-color: #0056b3;
+}
+
+

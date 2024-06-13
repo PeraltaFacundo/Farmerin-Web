@@ -6,6 +6,7 @@ const Monitor = () => {
     const { firebase, tamboSel } = useContext(FirebaseContext);
     const [tamboLink, setTamboLink] = useState('');
     const [loading, setLoading] = useState(true);
+    const [linkValido, setLinkValido] = useState(true);
 
     useEffect(() => {
         const obtenerEnlaceMonitor = async () => {
@@ -15,6 +16,14 @@ const Monitor = () => {
                     if (docSnapshot.exists) {
                         const linkValue = docSnapshot.data().monitor;
                         setTamboLink(linkValue);
+                        const testLink = new Image();
+                        testLink.onload = () => {
+                            setLinkValido(true);
+                        };
+                        testLink.onerror = () => {
+                            setLinkValido(false);
+                        };
+                        testLink.src = linkValue;
                     } else {
                         console.log("El documento no existe");
                     }
@@ -31,16 +40,23 @@ const Monitor = () => {
 
     return (
         <Layout titulo="Monitor">
-            <div>
-                {loading ? (
-                    <p>Cargando...</p>
-                ) : tamboLink ? (
-                    <iframe src={tamboLink} title="Monitor" style={{ width: '100%', height: '1000px', border: '1px solid #fff', borderRadius: '10px' }} />
-                ) : (
-                    <p>EL CONTENIDO DEL MONITOR NO ESTÁ DISPONIBLE EN ESTE MOMENTO.</p>
-                )}
-            </div>
-        </Layout>
+        <div>
+          {loading ? (
+            <div className="containerMonitor">
+              <div className="loaderMonitor"></div>
+            </div> // Si hay carga en progreso, muestra la animación de carga
+          ) : linkValido ? (
+            <div className="containerMonitor">
+              <div className="loaderMonitor"></div>
+            </div> 
+          ) : tamboLink ? (
+            <iframe src={tamboLink} title="Monitor" style={{ width: '100%', height: '1000px', border: '1px solid #fff', borderRadius: '10px' }} />
+          ) : (
+            <img src="" alt="Contenido no disponible" style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
+          )}
+        </div>
+      </Layout>
+      
     );
 };
 

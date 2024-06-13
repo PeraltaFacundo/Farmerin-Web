@@ -48,6 +48,7 @@ const Actualizacion = () => {
             fparto: r[4],
             estrep: r[5],
             fservicio: r[6],
+           // racion: r[7],
             fila: fila
           }
 
@@ -73,7 +74,8 @@ const Actualizacion = () => {
     let fparto = '';
     let estrep;
     let fservicio = '';
-    let nservicio;
+    let nservicio
+   // let racion;
    
 
 
@@ -174,8 +176,9 @@ const Actualizacion = () => {
         }
       }
     }
+
     //valida que si los kg de racion sean numericos y mayor a cero
-    /*
+   /* 
     if (isNaN(a.racion)) {
       e = "Fila N°: " + a.fila + " / RP: " + a.rp + " - Los Kg. de racion debe ser un valor numérico";
       guardarErrores(errores => [...errores, e]);
@@ -186,7 +189,8 @@ const Actualizacion = () => {
         guardarErrores(errores => [...errores, e]);
         errores = true;
       }
-    }*/
+    }
+    */
 
     //Controla el valor del estado reproductivo
     if (a.estrep) {
@@ -257,7 +261,8 @@ const Actualizacion = () => {
           fparto: fparto,
           fservicio: fservicio,
           categoria: categoria,
-          erp:erp
+          erp:erp,
+         // racion:racion
         }
 
         //insertar en base de datos
