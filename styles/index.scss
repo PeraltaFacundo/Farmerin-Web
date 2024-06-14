@@ -623,84 +623,52 @@ $icon-size: 35px;
   animation: spin 2s linear infinite;
 }
 
-/* Grafico.css */
-
-body {
-  font-family: Arial, sans-serif;
-}
-
-.containerGrafico {
+.contenedor-grafico-formulario {
   display: flex;
   justify-content: space-between;
-  padding: 30px;
+  align-items: flex-start;
+  gap: 20px;
 }
 
-.chartContainer {
-  flex: 1;
-  margin-right: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.tambo-chart {
+  width: 100%; 
+  max-width: 350px; /* Tamaño máximo del gráfico */
 }
 
-.listContainer {
-  flex: 2; /* Hacer esta columna más ancha */
-  margin-left: 30px;
+.titulo-grande {
+  font-size: 1.5em; /* Tamaño grande */
+  font-weight: bold; /* Negrita */
 }
 
-.tamboChart {
-  width: 700%;
-  max-width: 700px; /* Tamaño del gráfico */
-}
-
-.tamboChart h2 {
-  font-size: 1.2em;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.AnimalesAusentesFormulario {
-  background: #fff;
+.formulario {
+  flex-grow: 1;
+  padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.AnimalesAusentesFormulario h2 {
-  font-size: 1.8em;
-  color: #333;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  text-align: left;
-}
-
-.tablaDeAnimales {
+.tabla-animales {
   width: 100%;
   border-collapse: collapse;
 }
 
-.tablaDeAnimales th,
-.tablaDeAnimales td {
+.tabla-animales th, .tabla-animales td {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 8px;
   text-align: left;
 }
 
-.tablaDeAnimales th {
-  background-color: #f4f4f4;
-  color: #333;
+.tabla-animales th {
+  background-color: #f2f2f2;
   font-weight: bold;
 }
 
-.tablaDeAnimales tr:nth-child(even) {
+.tabla-animales tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.tablaDeAnimalestr:hover {
+.tabla-animales tr:hover {
   background-color: #f1f1f1;
 }
 
@@ -716,5 +684,3 @@ body {
 .btn-accion:hover {
   background-color: #0056b3;
 }
-
-
