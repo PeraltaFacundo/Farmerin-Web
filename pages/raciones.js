@@ -1,89 +1,73 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
-
-// URLs y nombres de los tambos
-const tambos = [
-  'https://tambo-expo-device.dataplicity.io/node/raciones/',
-];
-const nombresTambos = [
-  'Tambo Farmerin',
-];
+import { FirebaseContext } from '../firebase2';
 
 function Grafico() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // Inicializa data como array
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
   const [animalesAusentes, setAnimalesAusentes] = useState([]);
   const [animalesNuncaPaso, setAnimalesNuncaPaso] = useState([]);
   const [animalesNoLeyo, setAnimalesNoLeyo] = useState([]);
+  const { firebase, tamboSel } = useContext(FirebaseContext);
 
   useEffect(() => {
-    async function fetchData() {
-      const allData = await Promise.all(tambos.map(async (url, index) => {
-        try {
-          const response = await axios.get(url);
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(response.data, 'text/html');
-          const table = doc.querySelector('table');
-          if (table) {
-            const dfUrl = tableToDataFrame(table);
-            return {
-              name: nombresTambos[index] || 'Tambo ${index + 1}',
-              data: dfUrl,
-            };
+    const obtenerRaciones = async () => {
+      try {
+        if (tamboSel) {
+          const docSnapshot = await firebase.db.collection('tambo').doc(tamboSel.id).get();
+          if (docSnapshot.exists) {
+            const racionesURL = docSnapshot.data().raciones;
+
+            if (racionesURL) {
+              try {
+                const response = await axios.get(racionesURL);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response.data, 'text/html');
+                const table = doc.querySelector('table');
+
+                if (table) {
+                  const parsedData = tableToDataFrame(table);
+                  setData(parsedData);
+                } else {
+                  console.error('No se encontró la tabla en los datos obtenidos');
+                }
+              } catch (error) {
+                console.error('Error al obtener los datos de raciones:', error);
+              }
+            } else {
+              console.error("El campo raciones no contiene una URL válida");
+            }
           } else {
-            return {
-              name: nombresTambos[index] ||' Tambo ${index + 1}',
-              data: null,
-            };
+            console.log("El documento no existe");
           }
-        } catch (error) {
-          console.error('Error fetching data', error);
-          return {
-            name: nombresTambos[index] || 'Tambo ${index + 1}',
-            data: null,
-          };
         }
-      }));
+      } catch (error) {
+        console.error("Error al obtener el campo raciones:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      setData(allData);
+    obtenerRaciones();
+  }, [tamboSel, firebase]);
 
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0) {
       // Filtrar y recopilar animales ausentes
-      const ausentes = allData.reduce((acc, tambo) => {
-        if (tambo.data) {
-          const ausentesEnTambo = tambo.data.filter(row => parseInt(row.DiasAusente) >= 2);
-          return acc.concat(ausentesEnTambo);
-        }
-        return acc;
-      }, []);
+      const ausentes = data.filter(row => parseInt(row.DiasAusente) >= 2);
       setAnimalesAusentes(ausentes);
 
       // Filtrar y recopilar animales "Nunca Paso"
-      const nuncapaso = allData.reduce((acc, tambo) => {
-        if (tambo.data) {
-          const nuncapasoEnTambo = tambo.data.filter(row => parseInt(row.DiasAusente) === -1);
-          return acc.concat(nuncapasoEnTambo);
-        }
-        return acc;
-      }, []);
+      const nuncapaso = data.filter(row => parseInt(row.DiasAusente) === -1);
       setAnimalesNuncaPaso(nuncapaso);
 
       // Filtrar y recopilar animales "No Leyo"
-      const noleyo = allData.reduce((acc, tambo) => {
-        if (tambo.data) {
-          const noleyoEnTambo = tambo.data.filter(row => parseInt(row.DiasAusente) === 1);
-          return acc.concat(noleyoEnTambo);
-        }
-        return acc;
-      }, []);
+      const noleyo = data.filter(row => parseInt(row.DiasAusente) === 1);
       setAnimalesNoLeyo(noleyo);
-
-      setLoading(false); // Finaliza la carga después de obtener los datos
     }
-
-    fetchData();
-  }, []);
+  }, [data]);
 
   return (
     <div className="containerGrafico">
@@ -91,9 +75,11 @@ function Grafico() {
         {loading ? (
           <div className="loaderGrafico">OBTENIENDO INFORMACION</div>
         ) : (
-          data.map((tambo, index) => (
-            <TamboChart key={index} tambo={tambo} />
-          ))
+          data.length > 0 ? (
+            <TamboChart tambo={{ name: tamboSel?.nombre, data }} />
+          ) : (
+            <div>No se encontraron datos para mostrar el gráfico.</div>
+          )
         )}
       </div>
       {!loading && (
@@ -102,19 +88,19 @@ function Grafico() {
           {animalesAusentes.length > 0 ? (
             <AnimalesAusentesList animales={animalesAusentes} />
           ) : (
-            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES AUSANTES.</div>
-          )}
-          {/* Lista de Animales que Nunca Pasaron */}
-          {animalesNuncaPaso.length > 0 ? (
-            <AnimalesNuncaPasoList animales={animalesNuncaPaso} />
-          ) : (
-            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES QUE NUNCA PASARON.</div>
+            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES AUSENTES.</div>
           )}
           {/* Lista de Animales que No Leyo */}
           {animalesNoLeyo.length > 0 ? (
             <AnimalesNoLeyoList animales={animalesNoLeyo} />
           ) : (
             <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES QUE NO SE LEYERON.</div>
+          )}
+          {/* Lista de Animales que Nunca Pasaron */}
+          {animalesNuncaPaso.length > 0 ? (
+            <AnimalesNuncaPasoList animales={animalesNuncaPaso} />
+          ) : (
+            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES QUE NUNCA PASARON.</div>
           )}
         </div>
       )}
@@ -123,8 +109,10 @@ function Grafico() {
 }
 
 function tableToDataFrame(table) {
+  // Convierte una tabla HTML a un array de objetos
   const rows = table.querySelectorAll('tr');
   const headers = Array.from(rows[0].querySelectorAll('th')).map(th => th.textContent.trim());
+
   return Array.from(rows).slice(1).map(row => {
     const cells = row.querySelectorAll('td');
     const obj = {};
@@ -223,7 +211,7 @@ function AnimalesNuncaPasoList({ animales }) {
 
   return (
     <div className="AnimalesFormulario">
-      <h2>Lista de animales que nunca se leyeron</h2>
+      <h2>Lista de animales que nunca se leyó</h2>
       <table className="tablaDeAnimales">
         <thead>
           <tr>
@@ -253,7 +241,7 @@ function AnimalesNoLeyoList({ animales }) {
 
   return (
     <div className="AnimalesFormulario">
-      <h2>Lista de animales que no leyo</h2>
+      <h2>Lista de animales que no se leyó</h2>
       <table className="tablaDeAnimales">
         <thead>
           <tr>
@@ -276,4 +264,4 @@ function AnimalesNoLeyoList({ animales }) {
   );
 }
 
-export default Grafico;
+export default Grafico;
