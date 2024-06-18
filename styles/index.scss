@@ -564,63 +564,48 @@ $icon-size: 35px;
   }
 
 }
-
 // MONITOR
 .containerMonitor {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.loaderMonitor {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-} 
-
-// RACIONES
-.containerRaciones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.loaderRaciones {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-} 
-.chart-wrapper {
-  display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 }
 
+.loaderMonitor{
+  background-image: url('/logoF.png');
+  background-size: contain; /* Ajusta el tamaño de la imagen para que quepa */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center;
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: 100px; /* Ajusta el tamaño según sea necesario */
+  border: 3px solid #f3f3f3; /* Crea un borde para el loader */
+  border-top: 3px solid #3498db; /* Borde superior azul */
+  border-radius: 50%; /* Forma de círculo */
+  animation: spin 2s linear infinite; /* Animación del loader */
+}
 
-.loaderGrafico {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+.innerContentMonitor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.imagenLogoMonitor {
+  width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+  /* Otros estilos de la imagen si es necesario */
+}
+
+.textoLoaderMonitor {
+  text-align: center;
+  font-size: 2.0em; /* Tamaño del texto */
+  margin-top: 30px; /* Espacio entre el loader y el texto */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Grafico.css */
@@ -634,7 +619,15 @@ $icon-size: 35px;
   height: 500px;
   width: 500px;
 }
-
+.TextoFoto 
+{
+  background-color: #1b8aa5; /* Color de fondo amarillo */
+  color: #c4cd07; /* Color de texto oscuro */
+  padding: 5px 9px; /* Espacio dentro del elemento */
+  border: 1px solid #e0a800; /* Borde del elemento */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 25PX; /* Tamaña de las letras */
+}
 .chartContainer {
   width: 100%;
   display: flex;
@@ -642,11 +635,54 @@ $icon-size: 35px;
   align-items: center;
 }
 
-.loaderGrafico {
-  margin: 50px;
-  font-size: 20px;
-  text-align: center;
+.chartContainer img {
+  height: 500px;
+  width: 500px;
 }
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loaderGrafico {
+  background-image: url('/logoF.png');
+  background-size: contain; /* Ajusta el tamaño de la imagen para que quepa */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center;
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: 100px; /* Ajusta el tamaño según sea necesario */
+  border: 3px solid #f3f3f3; /* Crea un borde para el loader */
+  border-top: 3px solid #3498db; /* Borde superior azul */
+  border-radius: 50%; /* Forma de círculo */
+  animation: spin 2s linear infinite; /* Animación del loader */
+}
+
+.innerContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.imagenLogo {
+  width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+  /* Otros estilos de la imagen si es necesario */
+}
+
+.textoLoader {
+  text-align: center;
+  font-size: 2.0em; /* Tamaño del texto */
+  margin-top: 30px; /* Espacio entre el loader y el texto */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 .listContainer {
   width: 100%;
@@ -658,10 +694,11 @@ $icon-size: 35px;
 .AnimalesFormulario {
   max-height: 600px;
   overflow-y: auto;
-  width: 30%;
+  width: 60%;
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
+  margin-left: 20px;
 }
 .AnimalesFormulario h2 {
   font-size: 23px;
@@ -683,10 +720,11 @@ $icon-size: 35px;
 }
 
 .mensajeVacio {
-  font-size: 14px;
+  font-size: 15px;
   color: #666;
   margin-top: 10px;
   text-align: center;
   font-weight: bold;
+  margin-left: 20px;
   //margin-top: 350px;
 }

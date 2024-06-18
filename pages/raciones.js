@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
+import Layout from '../components/layout/layout';
 import { FirebaseContext } from '../firebase2';
 
 function Grafico() {
@@ -70,18 +71,31 @@ function Grafico() {
   }, [data]);
 
   return (
+    <Layout
+      titulo="Grafico de ingreso"
+    >
     <div className="containerGrafico">
-      <div className="chartContainer">
-        {loading ? (
-          <div className="loaderGrafico">OBTENIENDO INFORMACION</div>
+    <div className="chartContainer">
+      {loading ? (
+        <div className="loaderContainer">
+          <div className="loaderGrafico">
+            <div className="innerContent">
+              <h1 className="imagenLogo"></h1>
+            </div>
+          </div>
+          <h2 className="textoLoader">OBTENIENDO INFORMACION</h2>
+        </div>
+      ) : (
+        data.length > 0 ? (
+          <TamboChart tambo={{ name: tamboSel?.nombre, data }} />
         ) : (
-          data.length > 0 ? (
-            <TamboChart tambo={{ name: tamboSel?.nombre, data }} />
-          ) : (
-            <div>No se encontraron datos para mostrar el gráfico.</div>
-          )
-        )}
-      </div>
+          <div className="noDataContainer">
+            <img src='/VacaGrafico.jpg' alt="Imagen de Vaca" />
+            <h2 className='TextoFoto'>¡LOS REGISTROS NO ESTAN DISPONIBLES!</h2>
+          </div>
+        )
+      )}
+    </div>
       {!loading && (
         <div className="listContainer">
           {/* Lista de Animales Ausentes */}
@@ -100,11 +114,12 @@ function Grafico() {
           {animalesNuncaPaso.length > 0 ? (
             <AnimalesNuncaPasoList animales={animalesNuncaPaso} />
           ) : (
-            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES QUE NUNCA PASARON.</div>
+            <div className="mensajeVacio">NO SE ENCONTRARON RESULTADOS PARA ANIMALES QUE NUNCA SE LEYERON.</div>
           )}
         </div>
       )}
     </div>
+    </Layout>
   );
 }
 
@@ -128,7 +143,8 @@ function TamboChart({ tambo }) {
     return (
       <div className="tamboChart">
         <h2><span className="titulo-grande">{tambo.name} - Animales En Ordeñe</span></h2>
-        <img src="/FARMERINNOTFOUND.jpeg" alt="Not Found" />
+        <img src="/VacaGrafico.jpeg" alt="Not Found" />
+        <h2 className='TextoFoto'>LOS REGISTROS NO ESTAN DISPONIBLES</h2>
       </div>
     );
   }
@@ -167,6 +183,7 @@ function TamboChart({ tambo }) {
   };
 
   return (
+
     <div className="tamboChart">
       <h2><span className="titulo-grande">{tambo.name} - Animales En Ordeñe</span></h2>
       <Pie data={chartData} />
@@ -176,7 +193,7 @@ function TamboChart({ tambo }) {
 
 function AnimalesAusentesList({ animales }) {
   if (animales.length === 0) {
-    return null; // Retorna null para evitar renderizar cuando no hay datos
+    return  <div className="loaderGrafico" />;
   }
 
   return (
@@ -206,7 +223,7 @@ function AnimalesAusentesList({ animales }) {
 
 function AnimalesNuncaPasoList({ animales }) {
   if (animales.length === 0) {
-    return null; // Retorna null para evitar renderizar cuando no hay datos
+    return  <div className="loaderGrafico" />;
   }
 
   return (
@@ -236,7 +253,7 @@ function AnimalesNuncaPasoList({ animales }) {
 
 function AnimalesNoLeyoList({ animales }) {
   if (animales.length === 0) {
-    return null; // Retorna null para evitar renderizar cuando no hay datos
+    return  <div className="loaderGrafico" />;
   }
 
   return (
