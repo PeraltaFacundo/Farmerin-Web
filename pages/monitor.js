@@ -38,24 +38,40 @@ const Monitor = () => {
         obtenerEnlaceMonitor();
     }, [tamboSel, firebase]);
 
-    return (
-        <Layout titulo="Monitor">
-        <div>
-          {loading ? (
-            <div className="containerMonitor">
-              <div className="loaderMonitor"></div>
-            </div> // Si hay carga en progreso, muestra la animación de carga
-          ) : linkValido ? (
-            <div className="containerMonitor">
-              <div className="loaderMonitor"></div>
-            </div> 
-          ) : tamboLink ? (
-            <iframe src={tamboLink} title="Monitor" style={{ width: '100%', height: '1000px', border: '1px solid #fff', borderRadius: '10px' }} />
-          ) : (
-            <img src="" alt="Contenido no disponible" style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
-          )}
+   return (
+    <Layout titulo="Monitor">
+    <div>
+      {loading ? (
+        <div className="loaderContainer">
+          <div className="loaderMonitor"></div>
         </div>
-      </Layout>
+      ) : linkValido ? (
+        <div className="loaderContainer">
+          <div className="loaderMonitor">
+            <div className="innerContentMonitor">
+              <h1 className="imagenLogoMonitor"></h1>
+            </div>
+          </div>
+          <h2 className="textoLoaderMonitor">OBTENIENDO INFORMACION</h2>
+        </div>
+      ) : tamboLink ? (
+        <iframe
+          src={tamboLink}
+          title="Monitor"
+          style={{ width: '100%', height: '1000px', border: '1px solid #fff', borderRadius: '10px' }}
+        />
+      ) : (
+        <div>
+        <img
+          src="/VacaGrafico.jpg" // Coloca la ruta correcta a la imagen de contenido no disponible
+          alt="Contenido no disponible"
+          style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
+        />
+        <h2 className='TextoFoto'>¡LOS REGISTROS NO ESTAN DISPONIBLES!</h2>
+        </div>
+      )}
+    </div>
+  </Layout>
       
     );
 };
