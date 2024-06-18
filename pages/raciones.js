@@ -159,7 +159,7 @@ function TamboChart({ tambo }) {
   const cantidadDiasAusentemayor = contarPorNumeroMayor(tambo.data, 'DiasAusente', 2);
 
   const valores = [cantidadDiasAusentem1, cantidadDiasAusente1, cantidadDiasAusentemayor, cantidadDiasAusente0];
-  const nombres = ['NUNCA PASO', 'NO SE LEYO', 'AUSENTE', 'PASANDO'];
+  const nombres = ['NUNCA SE LEYO', 'NO SE LEYO', 'AUSENTE', 'SE LEYO'];
   const colores = ['pink', 'red', 'blue', 'green'];
 
   const valoresFiltrados = valores.filter(val => val !== 0);
@@ -223,7 +223,7 @@ function AnimalesNuncaPasoList({ animales }) {
 
   return (
     <div className="AnimalesFormulario">
-      <h2>Lista de animales que nunca pasaron</h2>
+      <h2>Lista de animales que nunca se leyeron</h2>
       <table className="tablaDeAnimales">
         <thead>
           <tr>
